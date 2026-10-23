@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Workout Mosaic — Color Canvas Edition</title>
+    <title>Andrea's Monthly Workout Mosaic</title>
     
-    <!-- PWA & Mobile Meta Tags -->
+    <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#ff007f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Workout Mosaic">
-    <meta name="description" content="Turn fitness into glowing Pink & Gold masterwork artwork. Works 100% offline in Airplane Mode.">
+    <meta name="apple-mobile-web-app-title" content="Andrea Mosaic">
+    <meta name="description" content="Andrea's Monthly Workout Mosaic — Outdoor walks, weightlifting, rest days & daily 1-hr walk tracker.">
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
@@ -23,12 +23,8 @@
             --pink-light: #ffe5ec;
             --gold-primary: #ffd166;
             --gold-bright: #fee440;
-            --gold-dark: #d4af37;
-            --glass-bg: rgba(35, 10, 25, 0.75);
+            --glass-bg: rgba(35, 10, 25, 0.78);
             --glass-border: rgba(255, 209, 102, 0.35);
-            --glass-glow: rgba(255, 0, 127, 0.25);
-            --text-gold: #ffea9f;
-            --card-dark: rgba(20, 5, 15, 0.85);
             --radius-lg: 24px;
             --radius-md: 16px;
             --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
@@ -48,7 +44,7 @@
             color: #ffffff;
             font-family: var(--font-main);
             min-height: 100vh;
-            padding: 20px 15px 50px 15px;
+            padding: 20px 15px 60px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -60,13 +56,11 @@
             background-attachment: fixed;
         }
 
-        /* Particle Canvas Overlay */
+        /* Canvas Particle Overlay */
         #fx-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             pointer-events: none;
             z-index: 9999;
         }
@@ -80,17 +74,16 @@
             gap: 20px;
         }
 
-        /* Header Card */
+        /* Header */
         header {
             width: 100%;
-            background: linear-gradient(135deg, rgba(255, 0, 127, 0.25) 0%, rgba(255, 209, 102, 0.15) 100%);
+            background: linear-gradient(135deg, rgba(255, 0, 127, 0.28) 0%, rgba(255, 209, 102, 0.18) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            padding: 28px 24px;
+            padding: 26px 20px;
             border-radius: var(--radius-lg);
             text-align: center;
-            position: relative;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2);
         }
 
@@ -105,7 +98,7 @@
             font-weight: 800;
             letter-spacing: 2.5px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         header h1 {
@@ -113,20 +106,73 @@
             font-weight: 800;
             color: #ffffff;
             text-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            margin-bottom: 6px;
         }
 
         header p {
             font-size: 14px;
             color: #ffc2df;
-            max-width: 620px;
+            max-width: 650px;
             margin: 0 auto;
-            line-height: 1.5;
-            font-weight: 400;
+            line-height: 1.4;
         }
 
-        /* Action Toolbar */
+        /* Month Tracker Bar */
+        .month-tracker-card {
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 16px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .month-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--gold-bright);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .month-bubbles {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 6px;
+        }
+
+        .month-bubble {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 209, 102, 0.25);
+            border-radius: 12px;
+            padding: 8px 2px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffc2df;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .month-bubble:hover {
+            border-color: var(--gold-bright);
+            transform: translateY(-2px);
+        }
+
+        .month-bubble.active {
+            background: linear-gradient(135deg, #ff007f 0%, #ffd166 100%);
+            color: #12020a;
+            border-color: #ffffff;
+            font-weight: 900;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+        }
+
+        /* Controls Bar */
         .controls-bar {
             width: 100%;
             display: flex;
@@ -136,26 +182,12 @@
             gap: 12px;
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             padding: 14px 20px;
             border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .stats-group {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .progress-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .progress-ring-text {
+        .progress-text {
             font-size: 15px;
             font-weight: 700;
             color: var(--gold-bright);
@@ -169,15 +201,15 @@
         }
 
         .btn {
-            background: linear-gradient(135deg, rgba(255, 0, 127, 0.2) 0%, rgba(255, 209, 102, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(255, 0, 127, 0.25) 0%, rgba(255, 209, 102, 0.25) 100%);
             border: 1px solid var(--glass-border);
             color: #ffffff;
             padding: 9px 16px;
             border-radius: 12px;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -187,19 +219,23 @@
             transform: translateY(-2px);
             border-color: var(--gold-bright);
             box-shadow: 0 0 15px rgba(255, 209, 102, 0.4);
-            background: linear-gradient(135deg, rgba(255, 0, 127, 0.4) 0%, rgba(255, 209, 102, 0.4) 100%);
+            background: linear-gradient(135deg, rgba(255, 0, 127, 0.45) 0%, rgba(255, 209, 102, 0.45) 100%);
+        }
+
+        .btn-rest {
+            background: linear-gradient(135deg, rgba(255, 133, 162, 0.3) 0%, rgba(255, 209, 102, 0.3) 100%);
+            border-color: var(--pink-soft);
+            color: #ffe5ec;
+        }
+
+        .btn-rest:hover {
+            box-shadow: 0 0 18px rgba(255, 133, 162, 0.6);
         }
 
         .btn-reset {
-            background: rgba(255, 77, 109, 0.15);
+            background: rgba(255, 77, 109, 0.18);
             border-color: rgba(255, 77, 109, 0.4);
             color: #ff9ebb;
-        }
-
-        .btn-reset:hover {
-            background: rgba(255, 77, 109, 0.3);
-            border-color: #ff4d6d;
-            box-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
         }
 
         /* Filter Chips */
@@ -234,85 +270,73 @@
             box-shadow: 0 0 12px rgba(255, 0, 127, 0.5);
         }
 
-        /* Mosaic Art Frame */
+        /* Main Art Mosaic Grid */
         .art-frame {
             width: 100%;
-            background: rgba(18, 4, 13, 0.9);
+            background: rgba(18, 4, 13, 0.92);
             border: 2px solid var(--glass-border);
             border-radius: 28px;
-            padding: 24px;
+            padding: 22px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(255, 0, 127, 0.1);
-            position: relative;
         }
 
         .art-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 14px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
         }
 
-        /* Canvas Tile */
+        /* Mosaic Tiles */
         .tile {
             aspect-ratio: 1;
-            background: rgba(30, 8, 22, 0.8);
+            background: rgba(30, 8, 22, 0.85);
             border-radius: var(--radius-md);
-            border: 1.5px solid rgba(255, 209, 102, 0.2);
+            border: 1.5px solid rgba(255, 209, 102, 0.22);
             cursor: pointer;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px;
-            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 8px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.08);
-        }
-
-        .tile::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
-            pointer-events: none;
         }
 
         .tile:hover {
-            transform: scale(1.06) translateY(-4px);
+            transform: scale(1.06) translateY(-3px);
             border-color: var(--gold-bright);
-            box-shadow: 0 10px 25px rgba(255, 0, 127, 0.35);
+            box-shadow: 0 10px 22px rgba(255, 0, 127, 0.35);
             z-index: 10;
         }
 
         .tile-number {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 800;
             color: rgba(255, 255, 255, 0.4);
-            transition: color 0.3s;
         }
 
         .tile-icon {
             font-size: 18px;
             margin-top: 2px;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
         .tile-label {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 4px;
+            letter-spacing: 0.3px;
+            color: rgba(255, 255, 255, 0.55);
+            margin-top: 3px;
             text-align: center;
-            line-height: 1.2;
+            line-height: 1.1;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        /* Completed Tile Colors (Pink & Gold Palettes) */
         .tile.completed {
             border-color: #ffffff !important;
             box-shadow: 0 0 20px var(--tile-glow) !important;
@@ -327,39 +351,23 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
         }
 
-        .tile.palette-magenta {
+        .tile.palette-outdoor {
             background: linear-gradient(135deg, #ff007f 0%, #b0005a 100%);
             --tile-glow: rgba(255, 0, 127, 0.8);
         }
 
-        .tile.palette-gold {
+        .tile.palette-lifting {
             background: linear-gradient(135deg, #ffd166 0%, #d49000 100%);
             --tile-glow: rgba(255, 209, 102, 0.8);
         }
 
-        .tile.palette-pink {
-            background: linear-gradient(135deg, #ff85a2 0%, #c94a6d 100%);
-            --tile-glow: rgba(255, 133, 162, 0.8);
-        }
-
-        .tile.palette-yellow {
-            background: linear-gradient(135deg, #fee440 0%, #b8a000 100%);
-            --tile-glow: rgba(254, 228, 64, 0.8);
-        }
-
-        .tile.palette-rose {
-            background: linear-gradient(135deg, #ff4d6d 0%, #800f2f 100%);
-            --tile-glow: rgba(255, 77, 109, 0.8);
-        }
-
-        .tile.palette-champagne {
-            background: linear-gradient(135deg, #f7d6b5 0%, #ba8b5c 100%);
+        .tile.palette-rest {
+            background: linear-gradient(135deg, #f7d6b5 0%, #996e4f 100%);
             --tile-glow: rgba(247, 214, 181, 0.8);
         }
 
-        /* Stained Glass Pure Art View */
         .art-frame.mosaic-mode .tile:not(.completed) {
-            opacity: 0.15;
+            opacity: 0.12;
             background: #000000;
         }
         .art-frame.mosaic-mode .tile-number,
@@ -368,13 +376,87 @@
             display: none;
         }
 
-        /* Detail Modal Popup */
+        /* 30 Light Pink Fill-in Walk Bubbles Tracker */
+        .walk-tracker-card {
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .walk-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .walk-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--pink-soft);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .walk-count {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--gold-bright);
+            background: rgba(255, 209, 102, 0.12);
+            padding: 4px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 209, 102, 0.3);
+        }
+
+        .pink-bubbles-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+        }
+
+        .pink-bubble {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: rgba(255, 133, 162, 0.15);
+            border: 2px solid rgba(255, 133, 162, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffc2df;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: inset 0 1px 3px rgba(255,255,255,0.2);
+        }
+
+        .pink-bubble:hover {
+            transform: scale(1.15);
+            border-color: var(--pink-soft);
+            background: rgba(255, 133, 162, 0.3);
+        }
+
+        .pink-bubble.filled {
+            background: linear-gradient(135deg, #ff85a2 0%, #ff007f 100%);
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: 0 0 14px rgba(255, 0, 127, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             inset: 0;
             background: rgba(10, 0, 5, 0.85);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -433,9 +515,7 @@
             font-size: 24px;
             cursor: pointer;
             opacity: 0.7;
-            transition: opacity 0.2s;
         }
-        .modal-close:hover { opacity: 1; }
 
         .modal-title {
             font-size: 22px;
@@ -465,9 +545,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .pf-box p {
@@ -476,14 +553,8 @@
             line-height: 1.4;
         }
 
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-
-        }
-
         .btn-toggle-complete {
-            flex: 1;
+            width: 100%;
             padding: 14px;
             border-radius: 16px;
             border: none;
@@ -497,19 +568,12 @@
         }
 
         .btn-toggle-complete.is-done {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
             color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: none;
         }
 
-        .btn-gh-modal {
-            background: rgba(255, 209, 102, 0.15);
-            border: 1px solid var(--gold-bright);
-            color: var(--gold-bright);
-        }
-
-        /* Note Input */
         .notes-area {
             width: 100%;
             background: rgba(0, 0, 0, 0.4);
@@ -523,32 +587,22 @@
             margin-bottom: 16px;
             outline: none;
         }
-        .notes-area:focus {
-            border-color: var(--pink-soft);
-        }
 
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 15px var(--tile-glow); }
             100% { box-shadow: 0 0 28px var(--tile-glow); }
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 768px) {
-            .art-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 10px;
-            }
-            body { padding: 12px 10px 40px 10px; }
-            header { padding: 20px 16px; }
+            .art-grid { grid-template-columns: repeat(4, 1fr); }
+            .pink-bubbles-grid { grid-template-columns: repeat(6, 1fr); }
+            .month-bubbles { grid-template-columns: repeat(6, 1fr); gap: 4px; }
         }
 
         @media (max-width: 480px) {
-            .art-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-            }
-            .tile-label { font-size: 9px; }
-            .controls-bar { padding: 12px; }
+            .art-grid { grid-template-columns: repeat(3, 1fr); }
+            .pink-bubbles-grid { grid-template-columns: repeat(5, 1fr); }
+            .month-bubbles { grid-template-columns: repeat(4, 1fr); }
         }
     </style>
 </head>
@@ -558,40 +612,58 @@
 
 <div class="app-container">
     <header>
-        <div class="header-title-badge">✨ Luxury Sunset Mosaic Canvas ✨</div>
-        <h1>Workout Mosaic</h1>
-        <p>Transform workout milestones into a customized pink & gold stained glass masterpiece. Fully functional in Airplane Mode!</p>
+        <div class="header-title-badge">✨ Luxury Sunset Mosaic Edition ✨</div>
+        <h1>Andrea's Monthly Workout Mosaic</h1>
+        <p>Your personalized monthly workout suite — featuring Outdoor Walks, Weightlifting, Rest Days & Daily 1-Hour Walk Tracking!</p>
     </header>
 
+    <!-- Month Selector Bubbles -->
+    <div class="month-tracker-card">
+        <div class="month-title">
+            <span>📅 Select Active Month:</span>
+            <span id="current-month-label" style="color:var(--pink-soft);">OCTOBER</span>
+        </div>
+        <div class="month-bubbles" id="month-bubbles-container"></div>
+    </div>
+
     <div class="controls-bar">
-        <div class="stats-group">
-            <div class="progress-badge">
-                <span style="font-size:20px;">🎨</span>
-                <div class="progress-ring-text">
-                    <span id="progress-count">0</span> / 24 Mosaic Tiles
-                </div>
-            </div>
+        <div class="progress-text">
+            🎨 Mosaic Completed: <span id="progress-count">0</span> / 19 Days
         </div>
 
         <div class="btn-group">
-            <button class="btn" id="btn-sound-toggle" onclick="toggleSound()">🔊 Audio: ON</button>
+            <button class="btn btn-rest" onclick="logRestDay()">☕ Log Rest Day</button>
+            <button class="btn" id="btn-sound-toggle" onclick="toggleSound()">🔊 Sound: ON</button>
             <button class="btn" onclick="toggleMosaicMode()">🖼️ Gallery Mode</button>
-            <button class="btn btn-gh-modal" onclick="openGithubGuide()">✈️ Host on GitHub</button>
-            <button class="btn btn-reset" onclick="resetCanvas()">↺ Reset</button>
+            <button class="btn" style="border-color:var(--gold-bright); color:var(--gold-bright);" onclick="openGithubGuide()">✈️ GitHub Setup</button>
+            <button class="btn btn-reset" onclick="resetMonth()">↺ Reset Month</button>
         </div>
     </div>
 
     <!-- Filter Chips -->
     <div class="filter-bar">
-        <button class="chip active" onclick="filterTiles('ALL')">All Workouts (24)</button>
-        <button class="chip" onclick="filterTiles('Zumba')">💃 Zumba (6)</button>
-        <button class="chip" onclick="filterTiles('Incline Walk')">🏔️ Incline Walk (8)</button>
-        <button class="chip" onclick="filterTiles('Seated Sculpt')">🪑 Seated Sculpt (4)</button>
-        <button class="chip" onclick="filterTiles('Yoga Flow')">🧘 Yoga Flow (6)</button>
+        <button class="chip active" onclick="filterTiles('ALL')">All Workouts (19)</button>
+        <button class="chip" onclick="filterTiles('Outdoor Walk')">👟 Outdoor Walk (8)</button>
+        <button class="chip" onclick="filterTiles('Weightlifting')">🏋️‍♀️ Weightlifting (7)</button>
+        <button class="chip" onclick="filterTiles('Rest Day')">☕ Rest Day (4)</button>
     </div>
 
+    <!-- Main Art Frame -->
     <div class="art-frame" id="art-frame">
         <div class="art-grid" id="game-grid"></div>
+    </div>
+
+    <!-- 30 Light Pink Fill-in Bubbles for Daily 1-Hour Walk -->
+    <div class="walk-tracker-card">
+        <div class="walk-header">
+            <div class="walk-title">
+                <span>👟 Daily 1-Hour Walk Tracker</span>
+            </div>
+            <div class="walk-count">
+                <span id="walk-completed-count">0</span> / 30 Days Completed
+            </div>
+        </div>
+        <div class="pink-bubbles-grid" id="pink-bubbles-grid"></div>
     </div>
 </div>
 
@@ -602,26 +674,24 @@
             <span class="modal-badge" id="m-category">Workout #1</span>
             <button class="modal-close" onclick="closeModal()">&times;</button>
         </div>
-        <div class="modal-title" id="m-title">Zumba Dance Party</div>
-        <div class="modal-quest" id="m-quest">Zumba Dance Party (30-45m)</div>
+        <div class="modal-title" id="m-title">Outdoor Walk</div>
+        <div class="modal-quest" id="m-quest">30-45m Fresh Air Outdoor Walk</div>
         
         <div class="pf-box">
             <h5>🦶 Plantar Fasciitis Safety Tip</h5>
-            <p id="m-pf">Keep steps flat-footed; substitute bouncing movements with major hip swings!</p>
+            <p id="m-pf">Wear cushioned supportive sneakers; step smoothly heel-to-toe and keep stride length moderate.</p>
         </div>
 
         <label style="font-size: 11px; color: var(--gold-bright); text-transform: uppercase; font-weight:700; margin-bottom: 6px; display:block;">
             ✏️ Daily Workout Notes:
         </label>
-        <textarea class="notes-area" id="m-notes" rows="2" placeholder="Record reps, incline speed, or how your feet felt today..."></textarea>
+        <textarea class="notes-area" id="m-notes" rows="2" placeholder="Record steps, weight loads, or how your feet felt..."></textarea>
 
-        <div class="modal-actions">
-            <button class="btn-toggle-complete" id="m-action-btn" onclick="toggleCurrentTile()">Mark Completed</button>
-        </div>
+        <button class="btn-toggle-complete" id="m-action-btn" onclick="toggleCurrentTile()">Mark Completed</button>
     </div>
 </div>
 
-<!-- GitHub Guide Modal -->
+<!-- GitHub Setup Modal -->
 <div class="modal-overlay" id="gh-modal-overlay">
     <div class="modal-card">
         <div class="modal-header">
@@ -631,11 +701,11 @@
         <div class="modal-title">Host Free on GitHub Pages</div>
         <div style="font-size: 13px; color: #ffc2df; line-height: 1.6; margin-bottom: 16px;">
             <ol style="padding-left: 20px;">
-                <li>Create a new repository on GitHub (e.g., <code>workout-mosaic</code>).</li>
-                <li>Upload all files from this folder (<code>index.html</code>, <code>manifest.webmanifest</code>, <code>sw.js</code>, <code>logo.png</code>).</li>
+                <li>Create a repo on GitHub named <code>andreas-workout-mosaic</code>.</li>
+                <li>Upload <code>index.html</code>, <code>manifest.webmanifest</code>, <code>sw.js</code>, and <code>logo.png</code>.</li>
                 <li>Go to <strong>Settings &rarr; Pages</strong> in your GitHub repo.</li>
                 <li>Select <strong>Branch: main / root</strong> and click <strong>Save</strong>.</li>
-                <li>Open the URL on your phone or computer, tap <strong>"Add to Home Screen"</strong>, and it will work 100% offline in Airplane Mode!</li>
+                <li>Tap <strong>"Add to Home Screen"</strong> on your phone to use offline anytime in Airplane Mode!</li>
             </ol>
         </div>
         <button class="btn-toggle-complete" onclick="closeGhModal()">Got It!</button>
@@ -643,52 +713,52 @@
 </div>
 
 <script>
-    // 24 Workouts with Plantar Fasciitis tips & luxury color assignments
+    // 15 Structured Workouts (3x/week across 5 weeks: 8 Outdoor Walks + 7 Weightlifting) + 4 Rest Days = 19 Main Grid Days
     const tilesData = [
-        { type: "Zumba", icon: "💃", color: "palette-magenta", quest: "Zumba Dance Party (30-45m)", pf: "Keep steps flat-footed; substitute bouncing movements with major hip swings!" },
-        { type: "Incline Walk", icon: "🏔️", color: "palette-gold", quest: "Incline Treadmill Walk (30m)", pf: "Set to 4-6% incline. Step intentionally so your heels don't sag lower than toes." },
-        { type: "Seated Sculpt", icon: "🪑", color: "palette-pink", quest: "Seated Upper Body Toning", pf: "Perfect break for your arches! Complete overhead presses, curls, and band rows." },
-        { type: "Incline Walk", icon: "🏔️", color: "palette-yellow", quest: "Steady Incline Climb (35m)", pf: "Maintain a steady 5% deck height. Pump your arms for momentum." },
-        { type: "Zumba", icon: "💃", color: "palette-rose", quest: "Rhythm & Coordination Zumba", pf: "Focus on upper body choreography. Keep impacts light and soft." },
-        { type: "Yoga Flow", icon: "🧘", color: "palette-champagne", quest: "1-Hour Core & Floor Yoga", pf: "Emphasize stretching hamstrings & calves while remaining seated or lying flat." },
-        
-        { type: "Zumba", icon: "💃", color: "palette-magenta", quest: "Zumba Energy Blast (45m)", pf: "Exaggerate arm pushes to keep your heart pumping without jumping." },
-        { type: "Incline Walk", icon: "🏔️", color: "palette-gold", quest: "Glute-Power Incline Walk", pf: "Walk at 5-7% incline. Fire up your glutes to naturally cushion foot strain." },
-        { type: "Seated Sculpt", icon: "🪑", color: "palette-pink", quest: "Seated Endurance Reps", pf: "High repetition (12-15) bench work targeting shoulders, back, and chest." },
-        { type: "Incline Walk", icon: "🏔️", color: "palette-yellow", quest: "Endurance Incline Walk (40m)", pf: "6% incline pace. Focus on deep continuous oxygen breathing." },
-        { type: "Zumba", icon: "💃", color: "palette-rose", quest: "Groove & Sweat Zumba", pf: "Listen closely to your arches; slow to a low march if any ache flares." },
-        { type: "Yoga Flow", icon: "🧘", color: "palette-champagne", quest: "Calf-Lengthening Yoga Flow", pf: "Floor-bound posture stretches to unwind lower-leg dynamic tension." },
-        
-        { type: "Zumba", icon: "💃", color: "palette-magenta", quest: "Tempo Trax Zumba (45m)", pf: "Engage your deep abs to help pull weight off your feet as you shift weight." },
-        { type: "Incline Walk", icon: "🏔️", color: "palette-gold", quest: "Steep Climb Walk (40m)", pf: "6-8% gradient challenge. Slower pace but incredible continuous leg activation." },
-        { type: "Seated Sculpt", icon: "🪑", color: "palette-pink", quest: "Heavy Control Seated Pump", pf: "Slower, deliberate muscle loading on overhead weights from a stable chair." },
-        { type: "Incline Walk", icon: "🏔️", color: "palette-yellow", quest: "Calorie Burner Walk (45m)", pf: "5-7% incline. Keep feet squarely under your hips while walking." },
-        { type: "Zumba", icon: "💃", color: "palette-rose", quest: "Zumba Fiesta Session", pf: "Pre-roll your arches on ice before starting to preemptively cool joints." },
-        { type: "Yoga Flow", icon: "🧘", color: "palette-champagne", quest: "Deep Hip & Arch Release", pf: "Passive floor stretches allowing deep decompression of structural leg loops." },
-        
-        { type: "Zumba", icon: "💃", color: "palette-magenta", quest: "Grand Finale Zumba (45m)", pf: "Maximum upper body dance extensions, minimum foot impact pounding." },
-        { type: "Incline Walk", icon: "🏔️", color: "palette-gold", quest: "Summit Incline Walk (45m)", pf: "7-8% incline master challenge. Keep strides short and crisp." },
-        { type: "Seated Sculpt", icon: "🪑", color: "palette-pink", quest: "Total Core & Arm Circuit", pf: "Seated rows, planks, and chest flies done without any standing load." },
-        { type: "Incline Walk", icon: "🏔️", color: "palette-yellow", quest: "Variable Incline Intervals", pf: "Switch between 5% and 8% every 5 minutes to test your endurance." },
-        { type: "Zumba", icon: "💃", color: "palette-rose", quest: "Victory Dance Zumba (45m)", pf: "Have fun, modify freely, stay low and loose." },
-        { type: "Yoga Flow", icon: "🧘", color: "palette-champagne", quest: "The Ultimate Recovery Flow", pf: "Check your foot flexibility today against week one. Relax and enjoy." }
+        // Week 1
+        { type: "Outdoor Walk", icon: "👟", color: "palette-outdoor", quest: "Fresh Air Outdoor Walk (45m)", pf: "Step heel-to-toe with supportive arch cushions; avoid hard concrete if possible." },
+        { type: "Weightlifting", icon: "🏋️‍♀️", color: "palette-lifting", quest: "Upper Body Strength & Toning", pf: "Perform standing or seated lifts with weight centered; keep knees soft." },
+        { type: "Outdoor Walk", icon: "👟", color: "palette-outdoor", quest: "Brisk Scenic Walk (45m)", pf: "Maintain an even pace. Pre-stretch calves before heading out." },
+        { type: "Rest Day", icon: "☕", color: "palette-rest", quest: "Full Recovery & Foot Ice Roll", pf: "Roll arches gently over a cold water bottle for 10-15 minutes." },
+
+        // Week 2
+        { type: "Weightlifting", icon: "🏋️‍♀️", color: "palette-lifting", quest: "Lower Body & Glute Power", pf: "Focus on glute activation to take strain off plantar fascia." },
+        { type: "Outdoor Walk", icon: "👟", color: "palette-outdoor", quest: "Nature Trail Outdoor Walk (50m)", pf: "Choose soft dirt or rubberized tracks to absorb foot impact." },
+        { type: "Weightlifting", icon: "🏋️‍♀️", color: "palette-lifting", quest: "Core & Shoulder Press Circuit", pf: "Maintain core bracing; keep weight distributed evenly across both feet." },
+        { type: "Rest Day", icon: "☕", color: "palette-rest", quest: "Calf Stretch & Active Rest", pf: "Gentle floor stretches for calves, hamstrings, and plantar band." },
+
+        // Week 3
+        { type: "Outdoor Walk", icon: "👟", color: "palette-outdoor", quest: "Sunset Power Walk (45m)", pf: "Keep stride short and crisp; pump arms for continuous momentum." },
+        { type: "Weightlifting", icon: "🏋️‍♀️", color: "palette-lifting", quest: "Full Body Dumbbell Sculpt", pf: "Use comfortable weights with high control and full range of motion." },
+        { type: "Outdoor Walk", icon: "👟", color: "palette-outdoor", quest: "Interval Pace Outdoor Walk (45m)", pf: "Alternate 3 minutes brisk walk with 2 minutes moderate recovery." },
+        { type: "Rest Day", icon: "☕", color: "palette-rest", quest: "Relaxation & Warm Arch Massage", pf: "Warm bath or Epsom salt soak to loosen lower leg tension." },
+
+        // Week 4
+        { type: "Weightlifting", icon: "🏋️‍♀️", color: "palette-lifting", quest: "Back & Arm Sculpt Session", pf: "Keep spine neutral and feet planted flat on cushioned mat." },
+        { type: "Outdoor Walk", icon: "👟", color: "palette-outdoor", quest: "Neighborhood Exploration Walk (50m)", pf: "Wear thick moisture-wicking socks for extra sole padding." },
+        { type: "Weightlifting", icon: "🏋️‍♀️", color: "palette-lifting", quest: "Total Body Conditioning", pf: "Seated and standing super-sets with focus on slow controlled eccentrics." },
+        { type: "Rest Day", icon: "☕", color: "palette-rest", quest: "Ultimate Recovery & Hydration", pf: "Hydrate well and elevate feet for 20 minutes to reduce inflammation." },
+
+        // Bonus Week 5 / Wrap-Up
+        { type: "Outdoor Walk", icon: "👟", color: "palette-outdoor", quest: "Endurance Outdoor Walk (60m)", pf: "Pace yourself evenly; take short rest breaks if arches feel tight." },
+        { type: "Weightlifting", icon: "🏋️‍♀️", color: "palette-lifting", quest: "Strength PR & Toning Celebration", pf: "Finish strong with your favorite lifts and perfect form." },
+        { type: "Outdoor Walk", icon: "👟", color: "palette-outdoor", quest: "Victory Outdoor Walk (45m)", pf: "Enjoy the fresh air and celebrate completing your monthly mosaic!" }
     ];
 
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    let currentMonth = "OCT"; // Defaulted to October as requested
     let soundEnabled = true;
     let activeTileIndex = null;
     let currentFilter = 'ALL';
 
-    // 1. Synthesized Web Audio Sound Engine
+    // Audio Synthesizer
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     function playSynthSound(type) {
         if (!soundEnabled) return;
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
 
         const now = audioCtx.currentTime;
-
         if (type === 'click') {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
@@ -732,10 +802,10 @@
 
     function toggleSound() {
         soundEnabled = !soundEnabled;
-        document.getElementById('btn-sound-toggle').innerText = soundEnabled ? '🔊 Audio: ON' : 'Mute Sound';
+        document.getElementById('btn-sound-toggle').innerText = soundEnabled ? '🔊 Sound: ON' : 'Mute Sound';
     }
 
-    // 2. HTML5 Canvas Particle Explosions
+    // Particle Burst FX
     const canvas = document.getElementById('fx-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -749,10 +819,9 @@
 
     function triggerParticles(x, y) {
         const colors = ['#ff007f', '#ffd166', '#ff85a2', '#fee440', '#ffffff'];
-        for (let i = 0; i < 45; i++) {
+        for (let i = 0; i < 40; i++) {
             particles.push({
-                x: x,
-                y: y,
+                x: x, y: y,
                 vx: (Math.random() - 0.5) * 12,
                 vy: (Math.random() - 0.5) * 12 - 3,
                 size: Math.random() * 6 + 3,
@@ -768,9 +837,8 @@
         particles.forEach((p, index) => {
             p.x += p.vx;
             p.y += p.vy;
-            p.vy += 0.2; // Gravity
+            p.vy += 0.2;
             p.alpha -= p.decay;
-
             if (p.alpha <= 0) {
                 particles.splice(index, 1);
             } else {
@@ -787,37 +855,61 @@
     }
     renderParticles();
 
-    // 3. LocalStorage Persistence
-    function loadProgress() {
-        return JSON.parse(localStorage.getItem('workoutMosaicProgress')) || {};
+    // Storage Management (Per Month Keying)
+    function getMonthKey() {
+        return `andreaWorkoutData_${currentMonth}`;
     }
 
-    function saveProgress(id, status, notes = '') {
-        const progress = loadProgress();
-        if (!progress[id]) progress[id] = {};
-        progress[id].done = status;
-        if (notes !== undefined) progress[id].notes = notes;
-        localStorage.setItem('workoutMosaicProgress', JSON.stringify(progress));
+    function loadData() {
+        return JSON.parse(localStorage.getItem(getMonthKey())) || { tiles: {}, walks: {} };
+    }
+
+    function saveData(data) {
+        localStorage.setItem(getMonthKey(), JSON.stringify(data));
         updateStats();
     }
 
     function updateStats() {
-        const progress = loadProgress();
-        const count = Object.values(progress).filter(p => p.done).length;
-        document.getElementById('progress-count').innerText = count;
+        const data = loadData();
+        const tileCount = Object.values(data.tiles || {}).filter(t => t.done).length;
+        document.getElementById('progress-count').innerText = tileCount;
+
+        const walkCount = Object.values(data.walks || {}).filter(Boolean).length;
+        document.getElementById('walk-completed-count').innerText = walkCount;
     }
 
-    // 4. Grid Setup & Render
+    // Month Selector Render
+    function renderMonthSelector() {
+        const container = document.getElementById('month-bubbles-container');
+        container.innerHTML = '';
+
+        months.forEach(m => {
+            const div = document.createElement('div');
+            div.className = `month-bubble ${m === currentMonth ? 'active' : ''}`;
+            div.innerText = m;
+            div.addEventListener('click', () => {
+                playSynthSound('click');
+                currentMonth = m;
+                document.getElementById('current-month-label').innerText = m === 'OCT' ? 'OCTOBER (CURRENT)' : m;
+                renderMonthSelector();
+                setupGrid();
+                renderPinkWalkBubbles();
+            });
+            container.appendChild(div);
+        });
+    }
+
+    // Main Grid Setup
     function setupGrid() {
         const grid = document.getElementById('game-grid');
         grid.innerHTML = '';
-        const progress = loadProgress();
+        const data = loadData();
 
         tilesData.forEach((tile, index) => {
             if (currentFilter !== 'ALL' && tile.type !== currentFilter) return;
 
             const tileId = `tile-${index}`;
-            const tileState = progress[tileId] || {};
+            const tileState = data.tiles[tileId] || {};
             const isDone = tileState.done || false;
 
             const div = document.createElement('div');
@@ -840,16 +932,52 @@
         updateStats();
     }
 
-    // 5. Modal Controllers
-    function openModal(index, event) {
+    // Render 30 Light Pink Walk Bubbles
+    function renderPinkWalkBubbles() {
+        const container = document.getElementById('pink-bubbles-grid');
+        container.innerHTML = '';
+        const data = loadData();
+
+        for (let i = 1; i <= 30; i++) {
+            const walkId = `walk-${i}`;
+            const isFilled = data.walks[walkId] || false;
+
+            const bubble = document.createElement('div');
+            bubble.className = `pink-bubble ${isFilled ? 'filled' : ''}`;
+            bubble.innerText = i;
+
+            bubble.addEventListener('click', (e) => {
+                const updatedData = loadData();
+                const nowFilled = !updatedData.walks[walkId];
+                updatedData.walks[walkId] = nowFilled;
+                saveData(updatedData);
+
+                if (nowFilled) {
+                    bubble.classList.add('filled');
+                    playSynthSound('complete');
+                    const rect = bubble.getBoundingClientRect();
+                    triggerParticles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+                } else {
+                    bubble.classList.remove('filled');
+                    playSynthSound('reset');
+                }
+            });
+
+            container.appendChild(bubble);
+        }
+        updateStats();
+    }
+
+    // Modal
+    function openModal(index) {
         activeTileIndex = index;
         const tile = tilesData[index];
         const tileId = `tile-${index}`;
-        const progress = loadProgress();
-        const tileState = progress[tileId] || {};
+        const data = loadData();
+        const tileState = data.tiles[tileId] || {};
 
-        document.getElementById('m-category').innerText = `Mosaic Tile #${index + 1} • ${tile.type}`;
-        document.getElementById('m-title').innerText = tile.type + ' Quest';
+        document.getElementById('m-category').innerText = `Day #${index + 1} • ${tile.type}`;
+        document.getElementById('m-title').innerText = tile.type;
         document.getElementById('m-quest').innerText = tile.quest;
         document.getElementById('m-pf').innerText = tile.pf;
         document.getElementById('m-notes').value = tileState.notes || '';
@@ -859,7 +987,7 @@
             actionBtn.innerText = '✨ Completed (Click to Undo)';
             actionBtn.classList.add('is-done');
         } else {
-            actionBtn.innerText = '🌸 Complete & Colorize';
+            actionBtn.innerText = '🌸 Complete & Colorize Tile';
             actionBtn.classList.remove('is-done');
         }
 
@@ -874,29 +1002,48 @@
         if (activeTileIndex === null) return;
 
         const tileId = `tile-${activeTileIndex}`;
-        const progress = loadProgress();
-        const currentState = progress[tileId]?.done || false;
+        const data = loadData();
+        const currentState = data.tiles[tileId]?.done || false;
         const newState = !currentState;
         const notes = document.getElementById('m-notes').value;
 
-        saveProgress(tileId, newState, notes);
-        
+        if (!data.tiles[tileId]) data.tiles[tileId] = {};
+        data.tiles[tileId].done = newState;
+        data.tiles[tileId].notes = notes;
+
+        saveData(data);
+
         const tileElem = document.getElementById(tileId);
         const tile = tilesData[activeTileIndex];
 
         if (newState) {
-            tileElem.className = `tile completed ${tile.color}`;
+            if (tileElem) tileElem.className = `tile completed ${tile.color}`;
             playSynthSound('complete');
-
-            // Find tile position for particles
-            const rect = tileElem.getBoundingClientRect();
-            triggerParticles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            if (tileElem) {
+                const rect = tileElem.getBoundingClientRect();
+                triggerParticles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            }
         } else {
-            tileElem.className = 'tile';
+            if (tileElem) tileElem.className = 'tile';
             playSynthSound('reset');
         }
 
         closeModal();
+    }
+
+    // Rest Day Quick Logger
+    function logRestDay() {
+        playSynthSound('click');
+        const restIndices = tilesData.map((t, idx) => t.type === 'Rest Day' ? idx : null).filter(i => i !== null);
+        const data = loadData();
+        
+        // Find first open rest day tile
+        let foundIndex = restIndices.find(idx => !data.tiles[`tile-${idx}`]?.done);
+        if (foundIndex !== undefined) {
+            openModal(foundIndex);
+        } else {
+            alert("All scheduled rest day tiles are logged for this month! Enjoy your recovery! ☕");
+        }
     }
 
     function filterTiles(category) {
@@ -911,11 +1058,12 @@
         playSynthSound('click');
     }
 
-    function resetCanvas() {
-        if (confirm("Reset your mosaic canvas back to dark space?")) {
+    function resetMonth() {
+        if (confirm(`Reset all workout and walk progress for ${currentMonth}?`)) {
             playSynthSound('reset');
-            localStorage.removeItem('workoutMosaicProgress');
+            localStorage.removeItem(getMonthKey());
             setupGrid();
+            renderPinkWalkBubbles();
         }
     }
 
@@ -928,16 +1076,20 @@
         document.getElementById('gh-modal-overlay').classList.remove('active');
     }
 
-    // Service Worker Offline Registration
+    // SW Registration
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Workout Mosaic Service Worker Active!', reg.scope))
-                .catch(err => console.log('SW Registration failed:', err));
+                .then(reg => console.log('Service Worker Registered!', reg.scope))
+                .catch(err => console.log('SW registration error:', err));
         });
     }
 
-    document.addEventListener('DOMContentLoaded', setupGrid);
+    document.addEventListener('DOMContentLoaded', () => {
+        renderMonthSelector();
+        setupGrid();
+        renderPinkWalkBubbles();
+    });
 </script>
 
 </body>

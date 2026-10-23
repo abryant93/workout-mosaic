@@ -1,10 +1,10 @@
 {
-  "name": "Workout Mosaic - Color Canvas",
-  "short_name": "WorkoutMosaic",
-  "description": "Pink & Gold Luxury Workout Mosaic App. 100% Offline & Airplane Mode Ready.",
+  "name": "Andrea's Monthly Workout Mosaic",
+  "short_name": "AndreaMosaic",
+  "description": "Andrea's Monthly Workout Mosaic App \u2014 Pink & Gold Offline PWA.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#16020e",
+  "background_color": "#12020a",
   "theme_color": "#ff007f",
   "orientation": "any",
   "icons": [
